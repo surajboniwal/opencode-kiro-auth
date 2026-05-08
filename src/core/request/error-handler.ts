@@ -114,6 +114,12 @@ export class ErrorHandler {
         errorReason = 'Account Suspended'
         isPermanent = true
       }
+      if (
+        errorReason.includes('bearer token included in the request is invalid') ||
+        errorReason.includes('The bearer token included in the request is invalid')
+      ) {
+        isPermanent = true
+      }
       if (isPermanent) {
         account.failCount = 10
       }

@@ -6,6 +6,8 @@ export function isPermanentError(reason?: string): boolean {
     reason.includes('invalid_grant') ||
     reason.includes('ExpiredTokenException') ||
     reason.includes('InvalidTokenException') ||
+    reason.includes('ExpiredClientException') ||
+    reason.includes('Client is expired') ||
     reason.includes('HTTP_401') ||
     reason.includes('HTTP_403')
   )

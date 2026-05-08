@@ -74,10 +74,12 @@ export class TokenRefresher {
       error instanceof KiroTokenRefreshError &&
       (error.code === 'ExpiredTokenException' ||
         error.code === 'InvalidTokenException' ||
+        error.code === 'ExpiredClientException' ||
         error.code === 'HTTP_401' ||
         error.code === 'HTTP_403' ||
         error.message.includes('Invalid refresh token provided') ||
-        error.message.includes('Invalid grant provided'))
+        error.message.includes('Invalid grant provided') ||
+        error.message.includes('Client is expired'))
     ) {
       this.accountManager.markUnhealthy(account, error.message)
       await this.repository.batchSave(this.accountManager.getAccounts())

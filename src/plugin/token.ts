@@ -53,7 +53,7 @@ export async function refreshAccessToken(auth: KiroAuthDetails): Promise<KiroAut
       }
       throw new KiroTokenRefreshError(
         `Refresh failed: ${data.message || data.error_description || txt}`,
-        data.error || `HTTP_${res.status}`
+        data.__type || data.error || `HTTP_${res.status}`
       )
     }
 
