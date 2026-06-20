@@ -64,10 +64,18 @@ export function createSdkClient(
             }
             args.request.body = JSON.stringify(body)
             logger.log(`[Effort] Injected additionalModelRequestFields.output_config.effort=${effort}`)
+            // Dump the top-level keys of final request body for verification
+            logger.log(`[Effort] Final request body keys: ${Object.keys(body).join(', ')}`)
+            logger.log(`[Effort] Final body.additionalModelRequestFields: ${JSON.stringify(body.additionalModelRequestFields)}`)
           } catch {
             // If body parsing fails, continue without modification
             logger.warn('[Effort] Failed to parse request body for effort injection')
           }
+        } else {
+          logger.warn('[Effort] No args.request.body found - checking args structure')
+          logger.log(`[Effort] args keys: ${Object.keys(args || {}).join(', ')}`)
+          logger.log(`[Effort] args.request keys: ${Object.keys(args?.request || {}).join(', ')}`)
+          logger.log(`[Effort] args.input keys: ${Object.keys(args?.input || {}).join(', ')}`)
         }
         return next(args)
       },

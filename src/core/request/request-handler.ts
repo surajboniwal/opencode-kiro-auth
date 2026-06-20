@@ -79,8 +79,17 @@ export class RequestHandler {
   ): Promise<Response> {
     const body = init?.body ? JSON.parse(init.body) : {}
     const model = this.extractModel(url) || body.model || 'claude-sonnet-4-5'
-    const think = model.endsWith('-thinking') || !!body.providerOptions?.thinkingConfig
-    const budget = body.providerOptions?.thinkingConfig?.thinkingBudget || 20000
+    const think = model.endsWith('-thinking') || !!body.providerOptions?.thinkingConfig || !!body.thinkingConfig
+    const budget =
+      body.providerOptions?.thinkingConfig?.thinkingBudget ||
+      body.thinkingConfig?.thinkingBudget ||
+      body.thinkingConfig?.budget_tokens ||
+      20000
+
+    // Debug: log what OpenCode sends us
+    logger.log(`[Debug] body keys: ${Object.keys(body).join(', ')}`)
+    logger.log(`[Debug] body.thinkingConfig: ${JSON.stringify(body.thinkingConfig)}`)
+    logger.log(`[Debug] model: ${model}, think: ${think}, budget: ${budget}`)
 
     let retry = 0
     let consecutiveNullAccounts = 0

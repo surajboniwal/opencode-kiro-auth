@@ -64,12 +64,18 @@ export function resolveEffort(kiroModel: string, requested: Effort): Effort | un
 /**
  * Map OpenCode thinking budget to Kiro effort level.
  * 
- * Budget ranges (approximate thinking token allocations):
- * - low:    minimal thinking
- * - medium: ~20k tokens (OpenCode default)
- * - high:   ~50k tokens
- * - xhigh:  ~80k tokens (opus-4.7/4.8 only)
- * - max:    ~128k tokens
+ * OpenCode sends thinkingBudget from its variant config. Standard values:
+ * - low:    8192
+ * - medium: 16384
+ * - high:   24576
+ * - max:    32768
+ * 
+ * We map these ranges to Kiro effort levels:
+ * - ≤10000  → low
+ * - ≤20000  → medium
+ * - ≤28000  → high
+ * - ≤32768  → max (or xhigh on opus-4.7/4.8, max otherwise)
+ * - >32768  → max
  */
 export function budgetToEffort(budget: number, kiroModel: string): Effort | undefined {
   if (!supportsEffort(kiroModel)) {
@@ -79,12 +85,10 @@ export function budgetToEffort(budget: number, kiroModel: string): Effort | unde
   let effort: Effort
   if (budget <= 10000) {
     effort = 'low'
-  } else if (budget <= 30000) {
+  } else if (budget <= 20000) {
     effort = 'medium'
-  } else if (budget <= 60000) {
+  } else if (budget <= 28000) {
     effort = 'high'
-  } else if (budget <= 100000) {
-    effort = supportsXHighEffort(kiroModel) ? 'xhigh' : 'max'
   } else {
     effort = 'max'
   }
