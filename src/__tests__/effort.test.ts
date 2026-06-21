@@ -58,10 +58,10 @@ describe('effort module', () => {
 
     test('maps budget ranges correctly', () => {
       expect(budgetToEffort(5000, 'claude-opus-4.8')).toBe('low')
-      expect(budgetToEffort(20000, 'claude-opus-4.8')).toBe('medium')
-      expect(budgetToEffort(50000, 'claude-opus-4.8')).toBe('high')
-      expect(budgetToEffort(80000, 'claude-opus-4.8')).toBe('xhigh')
-      expect(budgetToEffort(128000, 'claude-opus-4.8')).toBe('max')
+      expect(budgetToEffort(16384, 'claude-opus-4.8')).toBe('medium')
+      expect(budgetToEffort(24576, 'claude-opus-4.8')).toBe('high')
+      expect(budgetToEffort(32768, 'claude-opus-4.8')).toBe('max')
+      expect(budgetToEffort(80000, 'claude-opus-4.8')).toBe('max')
     })
 
     test('maps to max instead of xhigh for non-xhigh models', () => {

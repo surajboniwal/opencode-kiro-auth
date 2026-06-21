@@ -1,6 +1,5 @@
 import { CodeWhispererStreamingClient } from '@aws/codewhisperer-streaming-client'
 import { KIRO_CONSTANTS } from '../constants.js'
-import * as logger from './logger.js'
 import type { Effort, KiroAuthDetails } from './types'
 
 /**
@@ -49,7 +48,6 @@ export function createSdkClient(
 
   // Inject additionalModelRequestFields for effort-based thinking control
   if (effort) {
-    logger.log(`[Effort] Adding middleware to inject effort: ${effort}`)
     client.middlewareStack.add(
       (next: any) => async (args: any) => {
         // The SDK serializes input to args.input, we need to modify the body
@@ -63,19 +61,9 @@ export function createSdkClient(
               }
             }
             args.request.body = JSON.stringify(body)
-            logger.log(`[Effort] Injected additionalModelRequestFields.output_config.effort=${effort}`)
-            // Dump the top-level keys of final request body for verification
-            logger.log(`[Effort] Final request body keys: ${Object.keys(body).join(', ')}`)
-            logger.log(`[Effort] Final body.additionalModelRequestFields: ${JSON.stringify(body.additionalModelRequestFields)}`)
           } catch {
             // If body parsing fails, continue without modification
-            logger.warn('[Effort] Failed to parse request body for effort injection')
           }
-        } else {
-          logger.warn('[Effort] No args.request.body found - checking args structure')
-          logger.log(`[Effort] args keys: ${Object.keys(args || {}).join(', ')}`)
-          logger.log(`[Effort] args.request keys: ${Object.keys(args?.request || {}).join(', ')}`)
-          logger.log(`[Effort] args.input keys: ${Object.keys(args?.input || {}).join(', ')}`)
         }
         return next(args)
       },
