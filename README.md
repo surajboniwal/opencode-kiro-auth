@@ -1,8 +1,8 @@
 # OpenCode Kiro Auth Plugin
 
-[![npm version](https://img.shields.io/npm/v/@zhafron/opencode-kiro-auth)](https://www.npmjs.com/package/@zhafron/opencode-kiro-auth)
-[![npm downloads](https://img.shields.io/npm/dm/@zhafron/opencode-kiro-auth)](https://www.npmjs.com/package/@zhafron/opencode-kiro-auth)
-[![license](https://img.shields.io/npm/l/@zhafron/opencode-kiro-auth)](https://www.npmjs.com/package/@zhafron/opencode-kiro-auth)
+[![npm version](https://img.shields.io/npm/v/@surajboniwal/opencode-kiro-auth)](https://www.npmjs.com/package/@surajboniwal/opencode-kiro-auth)
+[![npm downloads](https://img.shields.io/npm/dm/@surajboniwal/opencode-kiro-auth)](https://www.npmjs.com/package/@surajboniwal/opencode-kiro-auth)
+[![license](https://img.shields.io/npm/l/@surajboniwal/opencode-kiro-auth)](https://www.npmjs.com/package/@surajboniwal/opencode-kiro-auth)
 
 OpenCode plugin for AWS Kiro (CodeWhisperer) providing access to Claude Sonnet and Haiku
 models with substantial trial quotas.
@@ -32,7 +32,7 @@ Add the plugin to your `opencode.json` or `opencode.jsonc`:
 
 ```json
 {
-  "plugin": ["@zhafron/opencode-kiro-auth"],
+  "plugin": ["@surajboniwal/opencode-kiro-auth"],
   "provider": {
     "kiro": {
       "models": {

@@ -75,6 +75,26 @@ export const createKiroPlugin =
               limit: { context: 1000000, output: 64000 },
               modalities: { input: ['text', 'image', 'pdf'], output: ['text'] }
             },
+            'claude-sonnet-5': {
+              name: 'Claude Sonnet 5 (1.3x)',
+              limit: { context: 200000, output: 64000 },
+              modalities: { input: ['text', 'image', 'pdf'], output: ['text'] }
+            },
+            'claude-sonnet-5-thinking': {
+              name: 'Claude Sonnet 5 Thinking (1.3x)',
+              limit: { context: 200000, output: 64000 },
+              modalities: { input: ['text', 'image', 'pdf'], output: ['text'] }
+            },
+            'claude-sonnet-5-1m': {
+              name: 'Claude Sonnet 5 (1M Context) (1.3x)',
+              limit: { context: 1000000, output: 64000 },
+              modalities: { input: ['text', 'image', 'pdf'], output: ['text'] }
+            },
+            'claude-sonnet-5-1m-thinking': {
+              name: 'Claude Sonnet 5 (1M Context) Thinking (1.3x)',
+              limit: { context: 1000000, output: 64000 },
+              modalities: { input: ['text', 'image', 'pdf'], output: ['text'] }
+            },
             // Claude Haiku
             'claude-haiku-4-5': {
               name: 'Claude Haiku 4.5 (0.4x)',
